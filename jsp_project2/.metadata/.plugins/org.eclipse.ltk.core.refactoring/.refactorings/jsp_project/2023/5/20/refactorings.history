@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from project &apos;jsp_project&apos;&#x0D;&#x0A;- Original project: &apos;jsp_project&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     log4j-api-2.17.2 (1).jar&#x0D;&#x0A;     log4j-core-2.17.2 (1).jar&#x0D;&#x0A;     log4j-slf4j-impl-2.17.2 (1).jar&#x0D;&#x0A;     log4j-web-2.17.2 (1).jar&#x0D;&#x0A;     slf4j-api-1.7.36 (1).jar" description="Delete elements" element1="src/main/webapp/WEB-INF/lib/log4j-core-2.17.2 (1).jar" element2="src/main/webapp/WEB-INF/lib/slf4j-api-1.7.36 (1).jar" element3="src/main/webapp/WEB-INF/lib/log4j-slf4j-impl-2.17.2 (1).jar" element4="src/main/webapp/WEB-INF/lib/log4j-web-2.17.2 (1).jar" element5="src/main/webapp/WEB-INF/lib/log4j-api-2.17.2 (1).jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="5" stamp="1684119181331" subPackages="false" version="1.0"/>
+</session>

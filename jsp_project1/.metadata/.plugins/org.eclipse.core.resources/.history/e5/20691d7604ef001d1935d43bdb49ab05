@@ -1,0 +1,13 @@
+package domain;
+
+public class ProductVO {
+	/* pno int not null auto_increment, pname varchar(45) not null, price int not
+	 * null, regdate datetime default now(), madeby varchar(45),
+ 	 * */
+	
+	private int pno;
+	private String pname;
+	private int price;
+	private String regdate;
+	private String madeby;
+}

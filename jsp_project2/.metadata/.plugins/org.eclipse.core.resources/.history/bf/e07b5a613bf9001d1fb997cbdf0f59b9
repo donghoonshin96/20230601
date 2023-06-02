@@ -1,0 +1,79 @@
+package repository;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.BoardVO;
+import orm.DatabaseBuilder;
+
+public class BoardDAOImpl implements BoardDAO {
+    private static final Logger log = LoggerFactory.getLogger(BoardDAOImpl.class);
+    private SqlSession sql;
+    private String NS = "BoardMapper.";
+
+    public BoardDAOImpl() {
+        new DatabaseBuilder();
+        sql = DatabaseBuilder.getFactory().openSession();
+    }
+
+    @Override
+    public int insert(BoardVO bvo) {
+        int isOk = sql.insert(NS + "register", bvo);
+        if (isOk > 0) {
+            sql.commit();
+        } else {
+            sql.rollback();
+        }
+        return isOk;
+    }
+
+    @Override
+    public List<BoardVO> getBoardList() {
+        return sql.selectList(NS + "getBoardList");
+    }
+
+
+    @Override
+    public BoardVO getBoard(int detailBno) {
+        return sql.selectOne(NS + "getBoard", detailBno);
+    }
+
+
+    @Override
+    public int deleteBoard(int deletedBno) {
+        int result = sql.delete(NS + "deleteBoard", deletedBno);
+        if (result > 0) {
+            sql.commit();
+        } else {
+            sql.rollback();
+        }
+        return result;
+    }
+
+
+    @Override
+    public int updateBoard(BoardVO updatedBoard) {
+        int result = sql.update(NS + "updateBoard", updatedBoard);
+        if (result > 0) {
+            sql.commit();
+        } else {
+            sql.rollback();
+        }
+        return result;
+    }
+
+    @Override
+    public int updateCount(int bno) {
+        int isOk = sql.update(NS + "count", bno);
+        return isOk;
+    }
+    
+    @Override
+    public int totCount() {
+    	return sql.selectOne(NS);
+    }
+
+}

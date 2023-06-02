@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=jsp_project4/src\/main\/java&lt;repository{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1685413028838"/>
+    <typeInfo handle="=jsp_project4/src\/main\/java&lt;repository{BoardDAO.java[BoardDAO" modifiers="513" timestamp="1685415844728"/>
+    <typeInfo handle="=jsp_project4/src\/main\/java&lt;service{BoardService.java[BoardService" modifiers="513" timestamp="1685415818544"/>
+    <typeInfo handle="=jsp_project4/src\/main\/java&lt;repository{CommentDAO.java[CommentDAO" modifiers="513" timestamp="1685414023247"/>
+    <typeInfo handle="=jsp_project4/src\/main\/java&lt;service{CommentService.java[CommentService" modifiers="513" timestamp="1685414060774"/>
+</typeInfoHistroy>

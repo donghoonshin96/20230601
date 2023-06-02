@@ -1,0 +1,118 @@
+// 로그인한 사용자의 계정 정보를 저장하는 변수
+let currentUser = '${ses.id }'; // 여기에 로그인한 사용자의 계정명을 설정해주세요
+
+// 댓글 목록 출력 함수
+function printCommentList(bno) {
+    getCommentListFromServer(bno).then(result => {
+        console.log(result);
+        if (result.length > 0) {
+            spreadCommentList(result);
+        } else {
+            let div = document.getElementById('accordionExample');
+            div.innerText = "comment가 없습니다.";
+        }
+    });
+}
+
+// 댓글 목록을 화면에 펼치는 함수
+function spreadCommentList(result) {
+    console.log(result);
+    let div = document.getElementById('accordionExample');
+    div.innerHTML = "";
+    for (let i = 0; i < result.length; i++) {
+        let html = `<div class="accordion-item">`;
+        html += `<h2 class="accordion-header" id="heading${i}">`;
+        html += `<button class="accordion-button" type="button" data-bs-toggle="collapse" `;
+        html += `data-bs-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">`;
+        html += `${result[i].cno}, ${result[i].writer} </button></h2>`;
+        html += `<div id="collapse${i}" class="accordion-collapse collapse show" `;
+        html += `aria-labelledby="heading${i}" data-bs-parent="#accordionExample">`;
+        html += `<div class="accordion-body">`;
+
+        // 자기 댓글인 경우에만 수정 및 삭제 버튼 표시
+        if (result[i].writer === currentUser) {
+            html += `<button type="button" data-cno="${result[i].cno}" data-writer="${result[i].writer}" class="btn btn-sm btn-outline-warning cmtModBtn">%</button>`;
+            html += `<button type="button" data-cno="${result[i].cno}" class="btn btn-sm btn-outline-danger cmtDelBtn">X</button>`;
+        }
+
+        html += `<input type="text" class="form-control" id="cmtText1" value="${result[i].content}">`;
+        html += `${result[i].reg_date}`;
+        html += `</div></div></div>`;
+        div.innerHTML += html;
+    }
+}
+
+// 댓글 삭제 함수
+async function removeCommentFromServer(cnoVal) {
+    try {
+        const url = '/cmt/remove?cnoVal=' + cnoVal;
+        const config = {
+            method: 'post'
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// 댓글 수정 함수
+async function updateCommentFromServer(cnoVal, cmtText1, writer) {
+    try {
+        const url = "/cmt/modify";
+        const config = {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({ cno: cnoVal, content: cmtText1, writer: writer })
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(">>>error > " + error);
+    }
+}
+
+// 이벤트 위임을 사용하여 수정 및 삭제 버튼에 이벤트 핸들러 등록
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('cmtModBtn')) {
+        let cnoVal = e.target.dataset.cno;
+        console.log(cnoVal);
+
+        let div = e.target.closest('div');
+        let cmtText1 = div.querySelector('#cmtText1').value;
+        let writer = e.target.dataset.writer;
+
+        // 자기 댓글인 경우에만 수정 가능
+        if (writer === currentUser) {
+            updateCommentFromServer(cnoVal, cmtText1, writer).then(result => {
+                if (result > 0) {
+                    alert("댓글 수정 완료");
+                    console.log("result");
+                    printCommentList(bnoVal);
+                } else {
+                    alert("수정불가");
+                }
+            });
+        }
+    }
+    if (e.target.classList.contains('cmtDelBtn')) {
+        let cnoVal = e.target.dataset.cno;
+        console.log(cnoVal);
+
+        // 자기 댓글인 경우에만 삭제 가능
+        let writer = e.target.closest('.accordion-body').querySelector('.cmtModBtn').dataset.writer;
+        if (writer === currentUser) {
+            removeCommentFromServer(cnoVal).then(result => {
+                if (result > 0) {
+                    alert('댓글 삭제 완료');
+                    printCommentList(bnoVal);
+                    console.log(bnoVal);
+                }
+            });
+        }
+    }
+});

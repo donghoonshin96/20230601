@@ -1,0 +1,10 @@
+package orm;
+
+import java.sql.Connection;
+
+public class Databaseconnector {
+    
+	//싱글톤 방식
+	private static Databaseconnector dbc = new Databaseconnector();
+	private Connection conn = null;
+}

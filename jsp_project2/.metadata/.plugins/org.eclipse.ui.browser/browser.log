@@ -1,0 +1,3 @@
+
+5월 16, 2023 10:47:23.216 NEW SESSION
+5월 16, 2023 10:47:23.216 [10684:9692:0516/104723.215:ERROR:interface_endpoint_client.cc(696)] Message 1 rejected by interface blink.mojom.WidgetHost

@@ -1,0 +1,23 @@
+package repository;
+
+import java.util.List;
+
+import domain.BoardVO;
+
+public interface BoardDAO {
+
+	int insert(BoardVO mvo);
+
+	List<BoardVO> getBoardList();
+
+	BoardVO getBoard(int detailBno);
+
+	int deleteBoard(int deletedBno);
+
+	int updateBoard(BoardVO updatedBoard);
+
+	int updateCount(int bno);
+
+	int totCount();
+
+}

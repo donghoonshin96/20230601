@@ -1,0 +1,7 @@
+package repository;
+
+import domain. PRoductVO;
+public interface DAO {
+
+	int insert(ProductVO pvo);
+}
